@@ -90,7 +90,7 @@ struct TicTacToe {
 impl TicTacToe {
 
     fn start(&mut self) -> bool {
-        let start_msg = String::from("the game is on");
+        let start_msg = String::from("Welcome to Tic Tac Toe, type the choords separated by a single space.");
 
         println!("{}", start_msg);
 
@@ -99,7 +99,7 @@ impl TicTacToe {
         loop {
             let result: char = self.table.calculate_winner();
             if result == 'N' {
-                println!("No one win, you are terrible");
+                println!("No one win, you are terrible!");
                 break false
             } else if result == 'C' {
                 self.table.print_game_table();
@@ -110,7 +110,7 @@ impl TicTacToe {
                 );
                 current_player = TicTacToe::swap_player(current_player);
             } else {
-                println!("You win"); // TODO
+                println!("{}\nWIN!!!", self.players[current_player].symbol); // TODO
                 break true
             }
         }
