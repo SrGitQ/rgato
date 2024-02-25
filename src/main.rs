@@ -30,13 +30,14 @@ impl GameTable {
         fn check_vertical(matrix: [[char; 3]; 3], player: char) -> bool {
             let best_case = [player; 3];
             let mut columns = [' '; 3];
-            for row in matrix {
-                for (i, col) in row.iter().enumerate() {
-                    columns[i] = *col;
+            for i in 0..3 {
+                for j in 0..3 {
+                    columns[j] = matrix[j][i];
                 }
                 if columns == best_case {
                     return true
                 }
+                println!("{:#?}", columns);
             }
             false
         }
