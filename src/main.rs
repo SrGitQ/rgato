@@ -51,7 +51,7 @@ impl GameTable {
         game_table.1[0] = [' ', '0', '1', '2'];
         game_table.1[1][0] = '0';
         game_table.1[2][0] = '1';
-        game_table.1[3][0] = '3';
+        game_table.1[3][0] = '2';
 
         return game_table
     }
@@ -67,14 +67,18 @@ struct Choord {
 }
 
 impl Choord {
-    fn read_from_line(line: &mut str) -> Self {
-        let line_len = line.len();
-        println!("line len: {}", line_len);
-        // split the line
-        Self {
-            x: 0,
-            y: 0,
-        }
+    fn read_from_line(line: &str) -> Self {
+        const LINE_WIDTH: usize = 4;
+
+        assert_eq!(line.len(), LINE_WIDTH);
+
+        let x = line[0..1].trim().parse::<usize>()
+            .expect("This is not a valid input for x");
+
+        let y = line[2..3].trim().parse::<usize>()
+            .expect("This is not a valid input for y");
+
+        Self { x, y }
     }
 }
 
