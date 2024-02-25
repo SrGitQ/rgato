@@ -37,7 +37,6 @@ impl GameTable {
                 if columns == best_case {
                     return true
                 }
-                println!("{:#?}", columns);
             }
             false
         }
@@ -97,6 +96,9 @@ impl GameTable {
             return false;
         }
         // TODO check if the point is already used
+        if self.0[point.x][point.y] != '_' {
+            return false
+        }
         self.0[point.x][point.y] = symbol;
         self.1[point.x+1][point.y+1] = symbol;
         true
@@ -174,10 +176,13 @@ impl TicTacToe {
             } else if result == 'C' {
                 self.table.print_game_table();
                 println!("Player {} is your turn!", self.players[current_player].symbol);
-                self.table.player_sign(
+                if !self.table.player_sign(
                     TicTacToe::player_input(), 
                     self.players[current_player].symbol
-                );
+                ) {
+                    println!("That is busy!!");
+                    continue;
+                }
                 current_player = TicTacToe::swap_player(current_player);
             } else {
                 current_player = TicTacToe::swap_player(current_player);
