@@ -177,7 +177,7 @@ impl TicTacToe {
                     TicTacToe::player_input(), 
                     self.players[current_player].symbol
                 );
-                current_player = TicTacToe::swap_player(current_player);// swap is weird
+                current_player = TicTacToe::swap_player(current_player);
             } else {
                 current_player = TicTacToe::swap_player(current_player);
                 println!("{}\nWIN!!!", self.players[current_player].symbol);
