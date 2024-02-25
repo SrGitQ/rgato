@@ -108,7 +108,7 @@ impl TicTacToe {
                     TicTacToe::player_input(), 
                     self.players[current_player].symbol
                 );
-                current_player = TicTacToe::change_player(current_player);
+                current_player = TicTacToe::swap_player(current_player);
             } else {
                 println!("You win"); // TODO
                 break true
@@ -116,7 +116,7 @@ impl TicTacToe {
         }
     }
 
-    fn change_player(player_index: usize) -> usize {
+    fn swap_player(player_index: usize) -> usize {
         if player_index == 0 { 1 } else { 0 }
     }
 
