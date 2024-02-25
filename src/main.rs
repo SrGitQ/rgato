@@ -5,15 +5,30 @@ struct GameTable([[char; 3]; 3], [[char; 4]; 4]);
 
 impl GameTable {
     fn calculate_winner(&self) -> char {
-        const EMPTY: char = ' ';
+        const NO_WIN: char = 'N';
+
+        if !self.empty_chunks() {
+            return NO_WIN
+        }
 
         const X_PLAYER: char = 'X';
         const Y_PLAYER: char = 'Y';
         const CONTINUE: char = 'C';
-        const NO_WIN: char = 'N';
 
         return CONTINUE;
         
+    }
+
+    fn empty_chunks(&self) -> bool {
+        const EMPTY: char = '_';
+        let mut state = false;
+
+        for row in self.0 {
+            if row.contains(&EMPTY) {
+                state = true
+            }
+        }
+        return state
     }
 
     fn player_sign(&mut self, point: Choord, symbol: char) -> bool {
