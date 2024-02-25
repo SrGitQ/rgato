@@ -15,6 +15,60 @@ impl GameTable {
         const Y_PLAYER: char = 'Y';
         const CONTINUE: char = 'C';
 
+        let players = [X_PLAYER, Y_PLAYER];
+
+        fn check_horizontal(matrix: [[char; 3]; 3], player: char) -> bool {
+            let best_case = [player; 3];
+            for row in matrix {
+                if row == best_case {
+                    return true
+                }
+            }
+            false
+        }
+
+        fn check_vertical(matrix: [[char; 3]; 3], player: char) -> bool {
+            let best_case = [player; 3];
+            let mut columns = [' '; 3];
+            for row in matrix {
+                for (i, col) in row.iter().enumerate() {
+                    columns[i] = *col;
+                }
+                if columns == best_case {
+                    return true
+                }
+            }
+            false
+        }
+
+        fn check_diagonal(matrix: [[char; 3]; 3], player: char) -> bool {
+            let best_case = [player; 3];
+            let mut columns = [' '; 3];
+
+            let a_indexes = [[0, 0],[1, 1],[2, 2]];
+            let b_indexes = [[2, 0],[1, 1],[0, 2]];
+            let cases = [a_indexes, b_indexes];
+            for case in cases {
+                for (i, index) in case.iter().enumerate() {
+                    columns[i] = matrix[index[0]][index[1]];
+                }
+                if columns == best_case {
+                    return true
+                }
+            }
+            false
+        }
+
+        for player in players {
+            let eval_game = 
+                check_horizontal(self.0, player)
+                || check_vertical(self.0, player)
+                || check_diagonal(self.0, player);
+            if eval_game {
+                return player
+            }
+        }
+
         return CONTINUE;
         
     }
@@ -123,9 +177,10 @@ impl TicTacToe {
                     TicTacToe::player_input(), 
                     self.players[current_player].symbol
                 );
-                current_player = TicTacToe::swap_player(current_player);
+                current_player = TicTacToe::swap_player(current_player);// swap is weird
             } else {
-                println!("{}\nWIN!!!", self.players[current_player].symbol); // TODO
+                current_player = TicTacToe::swap_player(current_player);
+                println!("{}\nWIN!!!", self.players[current_player].symbol);
                 break true
             }
         }
